@@ -1,12 +1,60 @@
 MDFloatLayout:
 
     MDRaisedButton:
+        text: "Skanuj kod"
+        pos_hint: {"center_x": .5, "center_y": .95}
+
+    MDLabel:
+        text: "Kod kreskowy:"
+        pos_hint: {"center_x": .5, "center_y": .85},
+
+    MDTextField:
+        text: ""
+        pos_hint: {"center_x": .5, "center_y": .8},
+        size_hint: (.4, 1)
+
+    MDLabel:
+        text: "PLU:"
+        pos_hint: {"center_x": .5, "center_y": .75},
+
+    MDTextField:
+        text: ""
+        pos_hint: {"center_x": .5, "center_y": .7},
+        size_hint: (.3, 1)
+
+    MDLabel:
+        text: "Nazwa towaru:"
+        pos_hint: {"center_x": .5, "center_y": .65},
+
+    MDTextField:
+        text: ""
+        pos_hint: {"center_x": .5, "center_y": .6},
+        size_hint: (.5, 1)
+
+    MDLabel:
+        text: "Data tostawy:"
+        pos_hint: {"center_x": .5, "center_y": .5},
+
+    MDRaisedButton:
+        text: "Dzisiaj"
+        pos_hint: {"center_x": .5, "center_y": .45}
+
+    MDLabel:
+        text: "Data przydatnosci:"
+        pos_hint: {"center_x": .5, "center_y": .35},
+
+    MDRaisedButton:
         text: "Open Date Picker"
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        on_relase: app.show_date_picker()
-        
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        on_release: app.show_date_picker()
+
+    MDRaisedButton:
+        text: "Zapisz"
+        pos_hint: {'center_x': .5, 'center_y': .5}
+
     MDLabel:
         id: date_label
-        text: "Some stuf"
-        pos_hint: {'center_x': 0.4, 'center_y': 0.4}
-
+        text:  "Some stuff"
+        pos_hint: {'center_x': .95, 'center_y': .4}
+        
+        
