@@ -10,7 +10,7 @@ class MainApp(MDApp):
         return Builder.load_file('date.kv')
 
     def on_save(self, instance, value, date_range):
-        self.root.ids.date_label.text = str(value)
+        self.root.ids.date_button.text = str(value)
 
     def on_cancel(self, instance, value):
         self.root.ids.date_label.text = 'Anulacja'
