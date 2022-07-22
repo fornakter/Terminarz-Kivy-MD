@@ -1,51 +1,55 @@
-MDFloatLayout:
+ScreenManager:
+    MenuScreen:
+    ScanScreen:
 
-    MDRaisedButton:
-        text: "Skanuj kod"
-        pos_hint: {"center_x": .5, "center_y": .9}
+<ScanScreen>:
+    name: 'scan'
+    MDBoxLayout:
+        MDRaisedButton:
+            text: "Powrot"
+            pos_hint: {"center_x":.5, "center_y":.5}
+            on_press: root.manager.current = 'menu'
 
-    MDTextField:
-        hint_text: "Kod kreskowy"
-        required: True
-        size_hint: (0.5, 0.1)
-        helper_text_mode: "on_error"
-        pos_hint: {"center_x": .5, "center_y": .8}
+<MenuScreen>:
+    name: 'menu'
+    MDBoxLayout:
 
-    MDTextField:
-        hint_text: "PLU"
-        required: True
-        size_hint: (0.5, 0.1)
-        helper_text_mode: "on_error"
-        input_filter: 'int'
-        pos_hint: {"center_x": .5, "center_y": .7}
+        MDBoxLayout:
+            size_hint: .5, 1
+            #MDCard:
+            #    md_bg_color: 1, 0, 0, .2
 
-    MDTextField:
-        hint_text: "Nazwa towaru"
-        size_hint: (0.5, 0.1)
-        pos_hint: {"center_x": .5, "center_y": .6}
+        MDBoxLayout:
+            padding: 16
+            orientation: 'vertical'
+            MDTextField:
+                hint_text: "Kod kreskowy"
+            MDRaisedButton:
+                text: "Skanuj kod"
+                pos_hint: {"center_x":.5, "center_y":.5}
+                on_press: root.manager.current = 'scan'
+            MDTextField:
+                hint_text: "Kod PLU"
+            MDTextField:
+                hint_text: "Nazwa towaru"
+            MDTextButton:
+                text: "Termin ważności"
+                pos_hint: {"center_x":.5, "center_y":.5}
+                enabled: False
 
-    MDLabel:
-        text: "Data tostawy:"
-        pos_hint: {"center_x": .95, "center_y": .5}
-
-    MDRaisedButton:
-        text: "Dzisiaj"
-        pos_hint: {"center_x": .5, "center_y": .4}
-
-    MDLabel:
-        text: "Data przydatnosci:"
-        pos_hint: {"center_x": .93, "center_y": .3}
-
-    MDRaisedButton:
-        text: "Wybierz datę"
-        id: date_button
-        pos_hint: {'center_x': .51, 'center_y': .2}
-        on_release: app.show_date_picker()
-
-    MDRaisedButton:
-        text: "Zapisz"
-        pos_hint: {'center_x': .5, 'center_y': .1}
+            MDRaisedButton:
+                text: "Wybierz datę"
+                id: date_button
+                pos_hint: {"center_x":.5, "center_y":.5}
+                on_release: app.show_date_picker()
+            MDRaisedButton:
+                text: "Zapisz"
+                id: save_button
+                pos_hint: {"center_x":.5, "center_y":.5}
 
 
-        
-        
+        MDBoxLayout:
+            size_hint: .5, 1
+            MDCard:
+                md_bg_color: 0, 0, 1, .1
+
