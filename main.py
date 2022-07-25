@@ -1,31 +1,24 @@
-# Qrcode Barcode Scanner using kivy ,kivymd Python
-
-from kivy.properties import ObjectProperty
 from kivy.clock import mainthread
-from kivy.utils import platform
+from kivy.properties import ObjectProperty
+from kivymd.uix.picker import MDDatePicker
+from kivy.lang import Builder
 from kivymd.app import MDApp
-from kivymd.uix.screen import MDScreen
+from kivy.uix.screenmanager import ScreenManager, Screen
 from camera4kivy import Preview
 from PIL import Image
 from pyzbar.pyzbar import decode
-from kivy.uix.screenmanager import ScreenManager, Screen
 
 
 class FirstWindow(Screen):
     pass
 
 
-class WindowManager(ScreenManager):
-    pass
-
-
-class ScanScreen(MDScreen):
-
+class SecoundWindow(Screen):
     def on_kv_post(self, obj):
         try:
             self.ids.preview.connect_camera(enable_analyze_pixels=True, default_zoom=0.0)
         except Exception as e:
-            print(e, ' on_kv_post')
+            print(e)
             # Error: 'super' object has no attribute '__getattr__'
 
         else:
@@ -34,18 +27,11 @@ class ScanScreen(MDScreen):
 
     @mainthread
     def got_result(self, result):
-        try:
-            self.ids.ti.text = str(result)
-        except Exception as e:
-            print(e, ' got_result')
-        else:
-            self.root.get_screen('secound').ids.ti.text = str(result)
-        print(result[0])
+        self.ids.ti.text = str(result)
 
 
-sm = ScreenManager()
-sm.add_widget(FirstWindow(name='first'))
-sm.add_widget(ScanScreen(name='secound'))
+class WindowManager(ScreenManager):
+    pass
 
 
 class ScanAnalyze(Preview):
@@ -62,13 +48,30 @@ class ScanAnalyze(Preview):
                 print("Not found")
 
 
-class QRScan(MDApp):
+sm = ScreenManager()
+sm.add_widget(FirstWindow(name='first'))
+sm.add_widget(SecoundWindow(name='secound'))
+
+
+class ReadQR(MDApp):
+
     def build(self):
-        if platform == 'android':
-            from android.permissions import request_permissions, Permission
-            request_permissions([Permission.WRITE_EXTERNAL_STORAGE, Permission.CAMERA, Permission.RECORD_AUDIO])
-        return ScanScreen()
+        self.theme_cls.theme_style = "Light"
+        self.theme_cls.ptimary_palette = "BlueGray"
+        return Builder.load_file('qrscan.kv')
+
+    def on_save(self, instance, value, date_range):
+        self.root.get_screen('first').ids.date_button.text = str(value)
+        pass
+
+    def on_cancel(self, instance, value):
+        pass
+
+    def show_date_picker(self):
+        date_dialog = MDDatePicker()
+        date_dialog.bind(on_save=self.on_save, on_cancel=self.on_cancel)
+        date_dialog.open()
 
 
 if __name__ == '__main__':
-    QRScan().run()
+    ReadQR().run()
